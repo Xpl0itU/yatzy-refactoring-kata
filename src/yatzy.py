@@ -12,10 +12,7 @@ class Yatzy:
 
     @staticmethod
     def chance(*dice):
-        score = 0
-        for die in dice:
-            score += die
-        return score
+        return sum(dice)
 
     @staticmethod
     def yatzy(*dice):
@@ -55,16 +52,14 @@ class Yatzy:
         return final_sum
 
     @classmethod
-    def three_of_a_kind(cls, *dice):
-        THREE = 3
-        pip = cls.__biggest_pip_repeated(dice, THREE)
-        return pip * THREE if pip else 0
-
-    @classmethod
-    def four_of_a_kind(cls, *dice):
-        FOUR = 4
-        pip = cls.__biggest_pip_repeated(dice, FOUR)
-        return pip * FOUR if pip else 0
+    def n_of_a_kind(cls, n, *dice, exactly_n=False):
+        pip = cls.__biggest_pip_repeated(dice, n)
+        if exactly_n:
+            for pip in Pips.reversedValues():
+                if dice.count(pip) == n:
+                    return pip * n
+            return 0
+        return pip * n if pip else 0
 
     @classmethod
     def __biggest_pip_repeated(cls, dice, times):
@@ -85,15 +80,8 @@ class Yatzy:
 
     @classmethod
     def fullHouse(cls, *dice):
-        if cls.two_of_a_kind(*dice) and cls.three_of_a_kind(*dice):
-            return cls.two_of_a_kind(*dice) + cls.three_of_a_kind(*dice)
-        else:
-            return 0
-
-    @classmethod
-    def two_of_a_kind(cls, *dice):
-        PAIR = 2
-        for pip in Pips.reversedValues():
-            if dice.count(pip) == PAIR:
-                return PAIR * pip
+        two_of_a_kind = cls.n_of_a_kind(Pips.TWO.value, *dice, exactly_n=True)
+        three_of_a_kind = cls.n_of_a_kind(Pips.THREE.value, *dice)
+        if two_of_a_kind and three_of_a_kind:
+            return two_of_a_kind + three_of_a_kind
         return 0
