@@ -1,7 +1,7 @@
 from src.pips import Pips
 
-class Yatzy:
 
+class Yatzy:
     # No es necesario.
     # Lo mantengo para no romper la interfaz
     # publica de la clase segun los
