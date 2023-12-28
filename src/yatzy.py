@@ -1,4 +1,5 @@
 from src.pips import Pips
+from itertools import groupby
 
 
 class Yatzy:
@@ -23,45 +24,35 @@ class Yatzy:
         return 50
 
     @staticmethod
-    def ones(*dice):
-        ONE = Pips.ONE.value
-        return dice.count(ONE) * ONE
+    def n_dice(n, *dice):
+        return dice.count(n) * n
+
+    def has_n_dice(self, n):
+        return self.n_dice(n, *self.dice)
 
     @staticmethod
-    def twos(*dice):
-        TWO = Pips.TWO.value
-        return dice.count(TWO) * TWO
+    def n_pairs(n, *dice):
+        numbers_occurrence_count = {}
+        for die in dice:
+            if die not in numbers_occurrence_count:
+                numbers_occurrence_count[die] = dice.count(die)
 
-    @staticmethod
-    def threes(*dice):
-        THREE = Pips.THREE.value
-        return dice.count(THREE) * THREE
+        pairs = list(
+            filter(
+                lambda die: numbers_occurrence_count[die] >= 2,
+                sorted(dice, reverse=True),
+            )
+        )
+        if len(pairs) <= n:
+            return 0
 
-    def fours(self):
-        FOUR = Pips.FOUR.value
-        return self.dice.count(FOUR) * FOUR
-
-    def fives(self):
-        FIVE = Pips.FIVE.value
-        return self.dice.count(FIVE) * FIVE
-
-    def sixes(self):
-        SIX = Pips.SIX.value
-        return self.dice.count(SIX) * SIX
-
-    @staticmethod
-    def pair(*dice):
-        PAIR = 2
-        for pip in Pips.reversedValues():
-            if dice.count(pip) >= PAIR:
-                return PAIR * pip
-        return 0
-
-    @classmethod
-    def two_pairs(cls, *dice):
-        PAIR = 2
-        pips_pairs = cls.__filter_pips_repeated(dice, PAIR)
-        return sum(pips_pairs) * PAIR if len(pips_pairs) == 2 else 0
+        grouped_pairs = list(
+            filter(lambda x: len(x) >= 2, [list(pair) for key, pair in groupby(pairs)])
+        )
+        if n == 1:
+            return sum(grouped_pairs[0][:2])
+        final_sum = sum([pair[0] * n for pair in grouped_pairs[:n]])
+        return final_sum
 
     @classmethod
     def three_of_a_kind(cls, *dice):
