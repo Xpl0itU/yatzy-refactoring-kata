@@ -71,8 +71,8 @@ class Yatzy:
         return list(filter(lambda pip: dice.count(pip) >= times, Pips.reversedValues()))
 
     @classmethod
-    def small_straight(cls, *dice):
-        return cls.chance(*dice) if not Pips.minus(Pips.SIX) - set(dice) else 0
+    def straight(cls, pip_set, *dice):
+        return cls.chance(*dice) if not Pips.minus(pip_set) - set(dice) else 0
 
     @classmethod
     def large_straight(cls, *dice):

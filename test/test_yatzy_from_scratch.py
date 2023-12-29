@@ -208,11 +208,11 @@ def test_four_of_a_kind():
 
 @pytest.mark.small
 def test_small_straight():
-    assert 15 == Yatzy.small_straight(1, 2, 3, 4, 5)
-    assert 0 == Yatzy.small_straight(2, 3, 4, 5, 6)
-    assert 0 == Yatzy.small_straight(1, 3, 4, 5, 5)
-    assert 0 == Yatzy.small_straight(6, 6, 6, 6, 6)
-    assert 0 == Yatzy.small_straight(1, 2, 3, 4, 6)
+    assert 15 == Yatzy.straight(Pips.SIX, 1, 2, 3, 4, 5)
+    assert 0 == Yatzy.straight(Pips.SIX, 2, 3, 4, 5, 6)
+    assert 0 == Yatzy.straight(Pips.SIX, 1, 3, 4, 5, 5)
+    assert 0 == Yatzy.straight(Pips.SIX, 6, 6, 6, 6, 6)
+    assert 0 == Yatzy.straight(Pips.SIX, 1, 2, 3, 4, 6)
 
 
 # Large straight:
@@ -226,11 +226,11 @@ def test_small_straight():
 
 @pytest.mark.large
 def test_large_straight():
-    assert 20 == Yatzy.large_straight(2, 3, 4, 5, 6)
-    assert 0 == Yatzy.large_straight(1, 2, 3, 4, 5)
-    assert 0 == Yatzy.large_straight(1, 3, 4, 5, 5)
-    assert 0 == Yatzy.large_straight(6, 6, 6, 6, 6)
-    assert 0 == Yatzy.large_straight(1, 2, 3, 4, 6)
+    assert 20 == Yatzy.straight(Pips.ONE, 2, 3, 4, 5, 6)
+    assert 0 == Yatzy.straight(Pips.ONE, 1, 2, 3, 4, 5)
+    assert 0 == Yatzy.straight(Pips.ONE, 1, 3, 4, 5, 5)
+    assert 0 == Yatzy.straight(Pips.ONE, 6, 6, 6, 6, 6)
+    assert 0 == Yatzy.straight(Pips.ONE, 1, 2, 3, 4, 6)
 
 
 # Full house:
