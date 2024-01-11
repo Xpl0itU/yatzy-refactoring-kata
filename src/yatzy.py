@@ -9,7 +9,7 @@ class Yatzy:
     # publica de la clase segun los
     # casos test originales.
     def __init__(self, *dice: Iterable[int]):
-        self.dice = list(dice)
+        self.dice = dice
 
     @staticmethod
     def chance(*dice: Iterable[int]) -> int:
