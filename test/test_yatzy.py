@@ -56,15 +56,15 @@ def test_sixes_test():
 
 
 def test_one_pair():
-    assert 6 == Yatzy.n_pairs(Pips.ONE.value, 3, 4, 3, 5, 6)
-    assert 10 == Yatzy.n_pairs(Pips.ONE.value, 5, 3, 3, 3, 5)
-    assert 12 == Yatzy.n_pairs(Pips.ONE.value, 5, 3, 6, 6, 5)
+    assert 6 == Yatzy.pair(3, 4, 3, 5, 6)
+    assert 10 == Yatzy.pair(5, 3, 3, 3, 5)
+    assert 12 == Yatzy.pair(5, 3, 6, 6, 5)
 
 
 def test_two_Pair():
-    assert 16 == Yatzy.n_pairs(Pips.TWO.value, 3, 3, 5, 4, 5)
-    assert 18 == Yatzy.n_pairs(Pips.TWO.value, 3, 3, 6, 6, 6)
-    assert 0 == Yatzy.n_pairs(Pips.TWO.value, 3, 3, 6, 5, 4)
+    assert 16 == Yatzy.two_pairs(3, 3, 5, 4, 5)
+    assert 18 == Yatzy.two_pairs(3, 3, 6, 6, 6)
+    assert 0 == Yatzy.two_pairs(3, 3, 6, 5, 4)
 
 
 def test_three_of_a_kind():

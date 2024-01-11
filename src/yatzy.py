@@ -77,6 +77,16 @@ class Yatzy:
         return final_sum
 
     @classmethod
+    def pair(cls, *dice):
+        ONE_PAIR = Pips.ONE.value
+        return cls.n_pairs(ONE_PAIR, *dice)
+
+    @classmethod
+    def two_pairs(cls, *dice):
+        TWO_PAIRS = Pips.TWO.value
+        return cls.n_pairs(TWO_PAIRS, *dice)
+
+    @classmethod
     def n_of_a_kind(cls, n, *dice, exactly_n=False):
         pip = cls.__biggest_pip_repeated(dice, n)
         if exactly_n:
