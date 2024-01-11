@@ -53,8 +53,8 @@ def test_ones():
     """
     The player scores the sum of the dice that reads one
     """
-    assert 0 == Yatzy.n_dice(Pips.ONE.value, 3, 3, 3, 4, 5)
-    assert 5 == Yatzy.n_dice(Pips.ONE.value, 1, 1, 1, 1, 1)
+    assert 0 == Yatzy.ones(3, 3, 3, 4, 5)
+    assert 5 == Yatzy.ones(1, 1, 1, 1, 1)
 
 
 @pytest.mark.twos
@@ -62,8 +62,8 @@ def test_twos():
     """
     The player scores the sum of the dice that reads two
     """
-    assert 0 == Yatzy.n_dice(Pips.TWO.value, 3, 3, 3, 4, 5)
-    assert 4 == Yatzy.n_dice(Pips.TWO.value, 2, 3, 2, 5, 1)
+    assert 0 == Yatzy.twos(3, 3, 3, 4, 5)
+    assert 4 == Yatzy.twos(2, 3, 2, 5, 1)
 
 
 @pytest.mark.threes
@@ -71,8 +71,8 @@ def test_threes():
     """
     The player scores the sum of the dice that reads three
     """
-    assert 0 == Yatzy.n_dice(Pips.THREE.value, 1, 1, 1, 1, 1)
-    assert 9 == Yatzy.n_dice(Pips.THREE.value, 3, 3, 3, 4, 5)
+    assert 0 == Yatzy.threes(1, 1, 1, 1, 1)
+    assert 9 == Yatzy.threes(3, 3, 3, 4, 5)
 
 
 # Los metodos fours, fives, sixes no son estaticos
@@ -112,7 +112,7 @@ def test_fours(inyector):
     valorEsperado = 8
     # No puedo testear con fixtures = inyeccion de dependencias
     # los metodos estaticos como chance()
-    assert valorEsperado == inyector.has_n_dice(Pips.FOUR.value)
+    assert valorEsperado == inyector.has_n_dice(Pips.FOUR)
 
 
 @pytest.mark.fives
@@ -121,7 +121,7 @@ def test_fives(inyector):
     The player scores the sum of the dice that reads five
     """
     valorEsperado = 10
-    assert valorEsperado == inyector.has_n_dice(Pips.FIVE.value)
+    assert valorEsperado == inyector.has_n_dice(Pips.FIVE)
 
 
 @pytest.mark.sixes
@@ -130,7 +130,7 @@ def test_sixes(inyector):
     The player scores the sum of the dice that reads six
     """
     valorEsperado = 6
-    assert valorEsperado == inyector.has_n_dice(Pips.SIX.value)
+    assert valorEsperado == inyector.has_n_dice(Pips.SIX)
 
 
 @pytest.mark.pair

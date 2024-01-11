@@ -21,11 +21,36 @@ class Yatzy:
         return 50
 
     @staticmethod
-    def n_dice(n, *dice):
+    def n_dice(pip, *dice):
+        n = pip.value
         return dice.count(n) * n
 
-    def has_n_dice(self, n):
-        return self.n_dice(n, *self.dice)
+    @classmethod
+    def ones(cls, *dice):
+        return cls.n_dice(Pips.ONE, *dice)
+
+    @classmethod
+    def twos(cls, *dice):
+        return cls.n_dice(Pips.TWO, *dice)
+
+    @classmethod
+    def threes(cls, *dice):
+        return cls.n_dice(Pips.THREE, *dice)
+
+    @classmethod
+    def fours(cls, *dice):
+        return cls.n_dice(Pips.FOUR, *dice)
+
+    @classmethod
+    def fives(cls, *dice):
+        return cls.n_dice(Pips.FIVE, *dice)
+
+    @classmethod
+    def sixes(cls, *dice):
+        return cls.n_dice(Pips.SIX, *dice)
+
+    def has_n_dice(self, pip):
+        return self.n_dice(pip, *self.dice)
 
     @staticmethod
     def n_pairs(n, *dice):
