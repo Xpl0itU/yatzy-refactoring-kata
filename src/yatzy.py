@@ -16,9 +16,11 @@ class Yatzy:
 
     @staticmethod
     def yatzy(*dice):
+        NO_SCORE = 0
+        FIFTY_SCORE = 50
         if dice.count(dice[0]) != len(dice):
-            return 0
-        return 50
+            return NO_SCORE
+        return FIFTY_SCORE
 
     @staticmethod
     def __n_dice(pip, *dice):
