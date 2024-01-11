@@ -1,5 +1,6 @@
-from src.pips import Pips
+from typing import Any, Iterable, List
 from itertools import groupby
+from src.pips import Pips
 
 
 class Yatzy:
@@ -7,15 +8,15 @@ class Yatzy:
     # Lo mantengo para no romper la interfaz
     # publica de la clase segun los
     # casos test originales.
-    def __init__(self, *dice):
+    def __init__(self, *dice: Iterable[int]):
         self.dice = list(dice)
 
     @staticmethod
-    def chance(*dice):
+    def chance(*dice: Iterable[int]) -> int:
         return sum(dice)
 
     @staticmethod
-    def yatzy(*dice):
+    def yatzy(*dice: Iterable[int]) -> int:
         NO_SCORE = 0
         FIFTY_SCORE = 50
         if dice.count(dice[0]) != len(dice):
@@ -23,39 +24,39 @@ class Yatzy:
         return FIFTY_SCORE
 
     @staticmethod
-    def __n_dice(pip, *dice):
+    def __n_dice(pip: Pips, *dice: Iterable[int]) -> int:
         n = pip.value
         return dice.count(n) * n
 
     @classmethod
-    def ones(cls, *dice):
+    def ones(cls, *dice: Iterable[int]) -> int:
         return cls.__n_dice(Pips.ONE, *dice)
 
     @classmethod
-    def twos(cls, *dice):
+    def twos(cls, *dice: Iterable[int]) -> int:
         return cls.__n_dice(Pips.TWO, *dice)
 
     @classmethod
-    def threes(cls, *dice):
+    def threes(cls, *dice: Iterable[int]) -> int:
         return cls.__n_dice(Pips.THREE, *dice)
 
     @classmethod
-    def fours(cls, *dice):
+    def fours(cls, *dice: Iterable[int]) -> int:
         return cls.__n_dice(Pips.FOUR, *dice)
 
     @classmethod
-    def fives(cls, *dice):
+    def fives(cls, *dice: Iterable[int]) -> int:
         return cls.__n_dice(Pips.FIVE, *dice)
 
     @classmethod
-    def sixes(cls, *dice):
+    def sixes(cls, *dice: Iterable[int]) -> int:
         return cls.__n_dice(Pips.SIX, *dice)
 
-    def has_n_dice(self, pip):
+    def has_n_dice(self, pip: Pips) -> int:
         return self.__n_dice(pip, *self.dice)
 
     @staticmethod
-    def __n_pairs(n, *dice):
+    def __n_pairs(n: int, *dice: Iterable[int]) -> int:
         numbers_occurrence_count = {}
         for die in dice:
             if die not in numbers_occurrence_count:
@@ -79,17 +80,17 @@ class Yatzy:
         return final_sum
 
     @classmethod
-    def pair(cls, *dice):
+    def pair(cls, *dice: Iterable[int]) -> int:
         ONE_PAIR = Pips.ONE.value
         return cls.__n_pairs(ONE_PAIR, *dice)
 
     @classmethod
-    def two_pairs(cls, *dice):
+    def two_pairs(cls, *dice: Iterable[int]) -> int:
         TWO_PAIRS = Pips.TWO.value
         return cls.__n_pairs(TWO_PAIRS, *dice)
 
     @classmethod
-    def __n_of_a_kind(cls, n, *dice, exactly_n=False):
+    def __n_of_a_kind(cls, n, *dice: Iterable[int], exactly_n: bool = False) -> int:
         pip = cls.__biggest_pip_repeated(dice, n)
         if exactly_n:
             for pip in Pips.reversedValues():
@@ -99,36 +100,36 @@ class Yatzy:
         return pip * n if pip else 0
 
     @classmethod
-    def three_of_a_kind(cls, *dice):
+    def three_of_a_kind(cls, *dice: Iterable[int]) -> int:
         return cls.__n_of_a_kind(Pips.THREE.value, *dice)
 
     @classmethod
-    def four_of_a_kind(cls, *dice):
+    def four_of_a_kind(cls, *dice: Iterable[int]) -> int:
         return cls.__n_of_a_kind(Pips.FOUR.value, *dice)
 
     @classmethod
-    def __biggest_pip_repeated(cls, dice, times):
+    def __biggest_pip_repeated(cls, dice: Iterable[int], times: int) -> List[Any]:
         pips = cls.__filter_pips_repeated(dice, times)
         return pips[0] if pips else []
 
     @classmethod
-    def __filter_pips_repeated(cls, dice, times):
+    def __filter_pips_repeated(cls, dice: Iterable[int], times: int) -> List[Any]:
         return list(filter(lambda pip: dice.count(pip) >= times, Pips.reversedValues()))
 
     @classmethod
-    def __straight(cls, pip_set, *dice):
-        return cls.chance(*dice) if not Pips.minus(pip_set) - set(dice) else 0
+    def __straight(cls, pip: Pips, *dice: Iterable[int]) -> int:
+        return cls.chance(*dice) if not Pips.minus(pip) - set(dice) else 0
 
     @classmethod
-    def small_straight(cls, *dice):
+    def small_straight(cls, *dice: Iterable[int]) -> int:
         return cls.__straight(Pips.SIX, *dice)
 
     @classmethod
-    def large_straight(cls, *dice):
+    def large_straight(cls, *dice: Iterable[int]) -> int:
         return cls.__straight(Pips.ONE, *dice)
 
     @classmethod
-    def full_house(cls, *dice):
+    def full_house(cls, *dice: Iterable[int]) -> int:
         two_of_a_kind = cls.__n_of_a_kind(Pips.TWO.value, *dice, exactly_n=True)
         three_of_a_kind = cls.three_of_a_kind(*dice)
         if two_of_a_kind and three_of_a_kind:
