@@ -90,14 +90,16 @@ class Yatzy:
         return cls.__n_pairs(TWO_PAIRS, *dice)
 
     @classmethod
-    def __n_of_a_kind(cls, n, *dice: Iterable[int], exactly_n: bool = False) -> int:
-        pip = cls.__biggest_pip_repeated(dice, n)
+    def __n_of_a_kind(
+        cls, n: int, *dice: Iterable[int], exactly_n: bool = False
+    ) -> int:
+        biggest_pip = cls.__biggest_pip_repeated(dice, n)
         if exactly_n:
-            for pip in Pips.reversedValues():
-                if dice.count(pip) == n:
-                    return pip * n
+            for pip in reversed(Pips):
+                if dice.count(pip.value) == n:
+                    return pip.value * n
             return 0
-        return pip * n if pip else 0
+        return biggest_pip.value * n if biggest_pip else 0
 
     @classmethod
     def three_of_a_kind(cls, *dice: Iterable[int]) -> int:
@@ -110,15 +112,15 @@ class Yatzy:
     @classmethod
     def __biggest_pip_repeated(cls, dice: Iterable[int], times: int) -> List[Any]:
         pips = cls.__filter_pips_repeated(dice, times)
-        return pips[0] if pips else []
+        return pips[0] if pips else 0
 
     @classmethod
     def __filter_pips_repeated(cls, dice: Iterable[int], times: int) -> List[Any]:
-        return list(filter(lambda pip: dice.count(pip) >= times, Pips.reversedValues()))
+        return list(filter(lambda pip: dice.count(pip.value) >= times, reversed(Pips)))
 
     @classmethod
     def __straight(cls, pip: Pips, *dice: Iterable[int]) -> int:
-        return cls.chance(*dice) if not Pips.minus(pip) - set(dice) else 0
+        return cls.chance(*dice) if not set(Pips.values(pip)) - set(dice) else 0
 
     @classmethod
     def small_straight(cls, *dice: Iterable[int]) -> int:
