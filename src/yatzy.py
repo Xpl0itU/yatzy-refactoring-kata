@@ -118,8 +118,12 @@ class Yatzy:
         return cls.chance(*dice) if not Pips.minus(pip_set) - set(dice) else 0
 
     @classmethod
+    def small_straight(cls, *dice):
+        return cls.straight(Pips.SIX, *dice)
+
+    @classmethod
     def large_straight(cls, *dice):
-        return cls.chance(*dice) if not Pips.minus(Pips.ONE) - set(dice) else 0
+        return cls.straight(Pips.ONE, *dice)
 
     @classmethod
     def full_house(cls, *dice):
