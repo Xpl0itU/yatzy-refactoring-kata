@@ -191,10 +191,10 @@ def test_three_of_a_kind():
 
 @pytest.mark.four_kind
 def test_four_of_a_kind():
-    assert 8 == Yatzy.n_of_a_kind(Pips.FOUR.value, 2, 2, 2, 2, 5)
-    assert 0 == Yatzy.n_of_a_kind(Pips.FOUR.value, 2, 2, 2, 5, 5)
-    assert 8 == Yatzy.n_of_a_kind(Pips.FOUR.value, 2, 2, 2, 2, 2)
-    assert 0 == Yatzy.n_of_a_kind(Pips.FOUR.value, 1, 2, 3, 4, 5)
+    assert 8 == Yatzy.four_of_a_kind(2, 2, 2, 2, 5)
+    assert 0 == Yatzy.four_of_a_kind(2, 2, 2, 5, 5)
+    assert 8 == Yatzy.four_of_a_kind(2, 2, 2, 2, 2)
+    assert 0 == Yatzy.four_of_a_kind(1, 2, 3, 4, 5)
 
 
 # Small straight:
