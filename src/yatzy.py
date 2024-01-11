@@ -76,7 +76,7 @@ class Yatzy:
         )
         if n == 1:
             return sum(grouped_pairs[0][:2])
-        final_sum = sum([pair[0] * n for pair in grouped_pairs[:n]])
+        final_sum = sum(pair[0] * n for pair in grouped_pairs[:n])
         return final_sum
 
     @classmethod
