@@ -124,7 +124,7 @@ class Yatzy:
 
     @classmethod
     def __straight(cls, pip: Pips, *dice: Iterable[int]) -> int:
-        return cls.chance(*dice) if not set(Pips.values(pip)) - set(dice) else 0
+        return cls.chance(*dice) if not set(Pips.exclude_values(pip)) - set(dice) else 0
 
     @classmethod
     def small_straight(cls, *dice: Iterable[int]) -> int:
