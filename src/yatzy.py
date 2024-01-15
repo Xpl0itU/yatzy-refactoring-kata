@@ -102,6 +102,10 @@ class Yatzy:
         return biggest_pip.value * n if biggest_pip else 0
 
     @classmethod
+    def two_of_a_kind(cls, *dice: Iterable[int]) -> int:
+        return cls.__n_of_a_kind(Pips.TWO.value, *dice, exactly_n=True)
+
+    @classmethod
     def three_of_a_kind(cls, *dice: Iterable[int]) -> int:
         return cls.__n_of_a_kind(Pips.THREE.value, *dice)
 
@@ -132,7 +136,7 @@ class Yatzy:
 
     @classmethod
     def full_house(cls, *dice: Iterable[int]) -> int:
-        two_of_a_kind = cls.__n_of_a_kind(Pips.TWO.value, *dice, exactly_n=True)
+        two_of_a_kind = cls.two_of_a_kind(*dice)
         three_of_a_kind = cls.three_of_a_kind(*dice)
         if two_of_a_kind and three_of_a_kind:
             return two_of_a_kind + three_of_a_kind
