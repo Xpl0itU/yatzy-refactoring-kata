@@ -93,12 +93,12 @@ class Yatzy:
     def __n_of_a_kind(
         cls, n: int, *dice: Iterable[int], exactly_n: bool = False
     ) -> int:
-        biggest_pip = cls.__biggest_pip_repeated(dice, n)
         if exactly_n:
             for pip in reversed(Pips):
                 if dice.count(pip.value) == n:
                     return pip.value * n
             return 0
+        biggest_pip = cls.__biggest_pip_repeated(dice, n)
         return biggest_pip.value * n if biggest_pip else 0
 
     @classmethod
