@@ -1,4 +1,4 @@
-from typing import Any, Iterable, List
+from typing import Iterable, Set
 from itertools import groupby
 from src.pips import Pips
 
@@ -114,13 +114,13 @@ class Yatzy:
         return cls.__n_of_a_kind(Pips.FOUR.value, *dice)
 
     @classmethod
-    def __biggest_pip_repeated(cls, dice: Iterable[int], times: int) -> List[Any]:
-        pips = cls.__filter_pips_repeated(dice, times)
-        return pips[0] if pips else 0
+    def __filter_pips_repeated(cls, dice: Iterable[int], times: int) -> Set[Pips]:
+        return set(filter(lambda pip: dice.count(pip.value) >= times, Pips))
 
     @classmethod
-    def __filter_pips_repeated(cls, dice: Iterable[int], times: int) -> List[Any]:
-        return list(filter(lambda pip: dice.count(pip.value) >= times, reversed(Pips)))
+    def __biggest_pip_repeated(cls, dice: Iterable[int], times: int) -> Pips:
+        pips = cls.__filter_pips_repeated(dice, times)
+        return max(pips) if pips else 0
 
     @classmethod
     def __straight(cls, pip: Pips, *dice: Iterable[int]) -> int:
