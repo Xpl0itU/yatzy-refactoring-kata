@@ -1,4 +1,3 @@
-from src.pips import Pips
 from src.yatzy import Yatzy
 
 # Casos test iniciales del kata para refactorizar
