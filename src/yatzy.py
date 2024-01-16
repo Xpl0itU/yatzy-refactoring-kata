@@ -62,7 +62,7 @@ class Yatzy:
             if die not in numbers_occurrence_count:
                 numbers_occurrence_count[die] = dice.count(die)
 
-        pairs = list(
+        pairs = tuple(
             filter(
                 lambda die: numbers_occurrence_count[die] >= 2,
                 sorted(dice, reverse=True),
