@@ -71,13 +71,8 @@ class Yatzy:
         if len(pairs) <= n:
             return 0
 
-        grouped_pairs = list(
-            filter(lambda x: len(x) >= 2, [list(pair) for key, pair in groupby(pairs)])
-        )
-        if n == 1:
-            return sum(grouped_pairs[0][:2])
-        final_sum = sum(pair[0] * n for pair in grouped_pairs[:n])
-        return final_sum
+        grouped_pairs = tuple(tuple(v) for k, v in groupby(pairs))
+        return sum(pair[0] * 2 for pair in grouped_pairs[:n])
 
     @classmethod
     def pair(cls, *dice: Iterable[int]) -> int:
