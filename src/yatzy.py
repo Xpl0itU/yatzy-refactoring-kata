@@ -70,7 +70,7 @@ class Yatzy:
         if len(pairs) <= number_of_pairs:
             return 0
 
-        grouped_pairs = tuple(map(lambda x: tuple(x[1]), groupby(pairs)))
+        grouped_pairs = tuple(groupby(pairs))
         return sum(map(lambda x: x[0] * PAIR, grouped_pairs[:number_of_pairs]))
 
     @classmethod
