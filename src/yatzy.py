@@ -59,25 +59,19 @@ class Yatzy:
     def __n_pairs(number_of_pairs: int, *dice: Iterable[int]) -> int:
         PAIR = 2
 
-        numbers_occurrence_count = {}
-        for die in dice:
-            if die not in numbers_occurrence_count:
-                numbers_occurrence_count[die] = dice.count(die)
-
-        pairs = tuple(
-            sorted(
-                filter(
-                    lambda die: numbers_occurrence_count[die] >= PAIR,
-                    dice,
-                ),
-                reverse=True,
-            )
+        pairs = sorted(
+            filter(
+                lambda die: dice.count(die) >= PAIR,
+                dice,
+            ),
+            reverse=True,
         )
+
         if len(pairs) <= number_of_pairs:
             return 0
 
-        grouped_pairs = tuple(tuple(v) for k, v in groupby(pairs))
-        return sum(pair[0] * PAIR for pair in grouped_pairs[:number_of_pairs])
+        grouped_pairs = tuple(map(lambda x: tuple(x[1]), groupby(pairs)))
+        return sum(map(lambda x: x[0] * PAIR, grouped_pairs[:number_of_pairs]))
 
     @classmethod
     def pair(cls, *dice: Iterable[int]) -> int:
